@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blocknote/core": "^0.15.4",
+    "@blocknote/mantine": "^0.15.4",
+    "@blocknote/react": "^0.15.4",
+    "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.5"
+    "react-textarea-autosize": "^8.5.3"
   },
   "devDependencies": {
     "postcss": "^8",
