@@ -1,7 +1,9 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import TextareaAutoSize from "react-textarea-autosize";
-const Editor = dynamic(() => import("@/components/editor"), { ssr: false });
+import Read from "@/components/read";
+
+const Post = dynamic(() => import("@/components/post"), { ssr: false });
 
 export default function Home() {
   const [title, setTitle] = useState("");
@@ -17,7 +19,9 @@ export default function Home() {
             placeholder="Untitled"
             className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
           />
-          <Editor />
+
+          <Post />
+          <Read />
         </div>
 
       </main>

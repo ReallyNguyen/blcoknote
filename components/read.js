@@ -7,17 +7,6 @@ import { useEffect, useState } from "react";
 import { db } from "@/firebaseConfig"; // Adjust the path as needed
 import { doc, getDoc, setDoc } from "firebase/firestore";
 
-// Function to save content to Firestore
-async function saveToFirestore(jsonBlocks) {
-    try {
-        const docRef = doc(db, "editorContent", "contentDoc");
-        await setDoc(docRef, { content: jsonBlocks });
-        console.log("Content saved to Firestore:", jsonBlocks);
-    } catch (error) {
-        console.error("Error saving content to Firestore:", error);
-    }
-}
-
 // Function to load content from Firestore
 async function loadFromFirestore() {
     try {
@@ -98,8 +87,7 @@ function renderContent(content) {
     });
 }
 
-// Main component
-export default function App() {
+export default function Read() {
     const [editor, setEditor] = useState(null);
     const [displayContent, setDisplayContent] = useState([]);
 
@@ -119,13 +107,6 @@ export default function App() {
 
     return (
         <div>
-            <BlockNoteView
-                editor={editor}
-                onChange={() => {
-                    console.log("Editor content changed:", editor.document);
-                    saveToFirestore(editor.document);
-                }}
-            />
             <div>
                 <h3>Formatted Content:</h3>
                 <div>
