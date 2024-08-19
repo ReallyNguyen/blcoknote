@@ -2,6 +2,8 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import TextareaAutoSize from "react-textarea-autosize";
 import Read from "@/components/read";
+import ImageUpload from "@/components/imageupload";
+import CreateBlog from "@/components/createblog";
 
 const Post = dynamic(() => import("@/components/post"), { ssr: false });
 
@@ -21,7 +23,8 @@ export default function Home() {
           />
 
           <Post />
-          <Read />
+          <ImageUpload />
+          <CreateBlog />
         </div>
 
       </main>

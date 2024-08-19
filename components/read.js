@@ -1,11 +1,12 @@
 "use client";
-import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
+import { BlockNoteEditor } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { useEffect, useState } from "react";
 import { db } from "@/firebaseConfig"; // Adjust the path as needed
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Image from 'next/image'; // Importing the Image component from next/image
 
 // Function to load content from Firestore
 async function loadFromFirestore() {
@@ -38,20 +39,19 @@ function renderContent(content) {
                 </span>
             ));
 
-            // Determine the Tailwind class based on the heading level
             let headingClass;
             switch (block.props.level) {
                 case 1:
-                    headingClass = 'text-4xl font-bold'; // Tailwind classes for h1
+                    headingClass = 'text-4xl font-bold';
                     break;
                 case 2:
-                    headingClass = 'text-3xl font-semibold'; // Tailwind classes for h2
+                    headingClass = 'text-3xl font-semibold';
                     break;
                 case 3:
-                    headingClass = 'text-2xl font-medium'; // Tailwind classes for h3
+                    headingClass = 'text-2xl font-medium';
                     break;
                 default:
-                    headingClass = 'text-xl'; // Default class if level is not recognized
+                    headingClass = 'text-xl';
             }
 
             return (
@@ -82,7 +82,26 @@ function renderContent(content) {
             );
         }
 
-        // Render null if block type is not recognized
+        // Add support for rendering images using the next/image component
+        if (block.type === "image") {
+            console.log("Image URL:", block.props.url); // Log the image URL
+
+            return (
+                <div key={block.id} className="my-4">
+                    <Image
+                        src={block.props.url}
+                        alt={block.props.alt || "Image"}
+                        width={block.props.width || 600} // Provide default width if not specified
+                        height={block.props.height || 400} // Provide default height if not specified
+                        className={`object-contain ${block.props.textAlignment ? `mx-auto` : ''}`}
+                        style={{
+                            backgroundColor: block.props.backgroundColor || 'transparent',
+                        }}
+                    />
+                </div>
+            );
+        }
+
         return null;
     });
 }
